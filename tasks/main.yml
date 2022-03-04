@@ -1,0 +1,36 @@
+---
+- name: include distro specific tasks
+  include_tasks: "{{ ansible_os_family }}-tasks.yml"
+
+- name: Ensure docker python module is installed
+  pip:
+    name: docker
+    state: present
+    
+- name: start container
+  docker_container:
+    name: pihole
+    image: "pihole/pihole:latest"
+    pull: true
+    state: started
+    tty: true
+    published_ports:
+      - '53:53/tcp'
+      - '53:53/udp'
+      - '80:80'
+      - '443:443'
+    #network_mode: host
+    env:
+      TZ: 'Europe/London'
+      VIRTUAL_HOST: 'pi.hole'
+      PROXY_LOCATION: 'pi.hole'
+      WEBPASSWORD: "{{ pi_pass }}"
+    hostname: pi.hole
+    volumes:
+      - '~/etc-pihole/:/etc/pihole/'
+      - '~/etc-dnsmasq.d/:/etc/dnsmasq.d/'
+    restart_policy: unless-stopped
+    capabilities:
+      - NET_ADMIN
+    privileged: true
+    container_default_behavior: compatibility

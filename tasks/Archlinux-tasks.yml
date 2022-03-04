@@ -1,0 +1,6 @@
+---
+- name: Ensure pip3 is installed on Manjaro
+  package:
+    name: python-pip
+    state: present
+

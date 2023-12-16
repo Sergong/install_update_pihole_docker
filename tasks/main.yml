@@ -1,14 +1,14 @@
 ---
-- name: include distro specific tasks
-  include_tasks: "{{ ansible_os_family }}-tasks.yml"
+- name: Include distro specific tasks
+  ansible.builtin.include_tasks: "{{ ansible_os_family }}-tasks.yml"
 
 - name: Ensure docker python module is installed
-  pip:
+  ansible.builtin.pip:
     name: docker
     state: present
-    
-- name: start container
-  docker_container:
+
+- name: Start container
+  community.docker.docker_container:
     name: pihole
     image: "pihole/pihole:latest"
     pull: true
@@ -19,7 +19,7 @@
       - '53:53/udp'
       - '80:80'
       - '443:443'
-    #network_mode: host
+    # network_mode: host
     env:
       TZ: 'Europe/London'
       VIRTUAL_HOST: 'pi.hole'

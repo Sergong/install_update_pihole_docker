@@ -1,17 +1,17 @@
 ---
 - name: Ensure pip3 is installed on Ubuntu
-  package:
+  ansible.builtin.package:
     name: python3-pip
     state: present
 
 - name: Ensure DNS Stub is disabled for systemd-resolved on Ubuntu
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /etc/systemd/resolved.conf
     regexp: "^#DNSStubListener=yes"
     line: "DNSStubListener=no"
 
 - name: Ensure /etc/resolved.conf points to the correct file
-  file:
+  ansible.builtin.file:
     src: /run/systemd/resolve/resolv.conf
     dest: /etc/resolv.conf
     state: link

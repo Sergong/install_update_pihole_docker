@@ -7,10 +7,14 @@
     name: docker
     state: present
 
+- name: Ensure we pick up correct version if override tag is specified
+  ansible.builtin.set_fact:
+    pihole_version: "{% if (override_tag | length) > 0 %}{{ override_tag }}{% else %}latest{% endif %}"
+
 - name: Start container
   community.docker.docker_container:
     name: pihole
-    image: "pihole/pihole:latest"
+    image: "pihole/pihole:{{ pihole_version }}"
     pull: true
     state: started
     tty: true

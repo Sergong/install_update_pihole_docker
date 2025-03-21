@@ -36,5 +36,6 @@
     restart_policy: unless-stopped
     capabilities:
       - NET_ADMIN
+      - SYS_NICE
     privileged: true
     container_default_behavior: compatibility

@@ -26,10 +26,13 @@
     # network_mode: host
     env:
       TZ: 'Europe/London'
-      VIRTUAL_HOST: 'pi.hole'
-      PROXY_LOCATION: 'pi.hole'
-      WEBPASSWORD: "{{ pi_pass }}"
-    hostname: pi.hole
+      VIRTUAL_HOST: "{{ pi_hostname }}"
+      PROXY_LOCATION: "{{ pi_hostname }}"
+      # Set a password to access the web interface. Not setting one will result in a random password being assigned
+      FTLCONF_webserver_api_password: "{{ web_password }}"
+      # If using Docker's default `bridge` network setting the dns listening mode should be set to 'all'
+      FTLCONF_dns_listeningMode: 'all'
+    hostname: "{{ pi_hostname }}"
     volumes:
       - '~/etc-pihole/:/etc/pihole/'
       - '~/etc-dnsmasq.d/:/etc/dnsmasq.d/'

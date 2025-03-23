@@ -1,5 +1,4 @@
 ---
-manjaro_family: Archlinux
-ubuntu_family: Debian
 override_tag: "" # set this only if required, will install/update latest if empty
 pi_hostname: "pi.hole"
+pi_pass: "" # set in calling playbook

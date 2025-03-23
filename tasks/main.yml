@@ -29,7 +29,7 @@
       VIRTUAL_HOST: "{{ pi_hostname }}"
       PROXY_LOCATION: "{{ pi_hostname }}"
       # Set a password to access the web interface. Not setting one will result in a random password being assigned
-      FTLCONF_webserver_api_password: "{{ web_password }}"
+      FTLCONF_webserver_api_password: "{{ pi_pass }}"
       # If using Docker's default `bridge` network setting the dns listening mode should be set to 'all'
       FTLCONF_dns_listeningMode: 'all'
     hostname: "{{ pi_hostname }}"
